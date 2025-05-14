@@ -24,6 +24,9 @@
 {% if site.data.theme.map-cluster == true %}<link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.css' | relative_url }}">
 <link rel="stylesheet" href="{{ '/assets/lib/leaflet/MarkerCluster.Default.css' | relative_url }}">{% endif %}{%- endif -%}
 <link rel="stylesheet" href="{{ '/assets/css/cb.css' | relative_url }}" type="text/css">
+{% if page.d3 %}
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+{% endif %}
 
 {% comment %} 
     Meta tags and analytics are added during production build ONLY 

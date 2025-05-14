@@ -15,6 +15,15 @@ layout: item/item-page-base
             {% include item/download-buttons.html %}
 
         </div>
-
+        
     </div>
 </div>
+<span vocab="http://schema.org/" typeof="Periodical">
+    <span property="identifier" content="https://doi.org/{{ page.identifier }}"></span>
+    <span property="name" content="{{ page.title }}"></span>
+    <span property="datePublished" content="{{ page.date }}"></span>
+<b>Authors: </b>{% assign authors = page.authorid | split: ';' %}{% for a in authors %}
+    {% assign author = site.data.authors | where: 'objectid', a | first %}
+    <a property="author" content="{{ author.title }}" href="{{ '/authors/' | relative_url }}{{ author.objectid }}.html">{{ author.title }}</a>
+{% endfor %}
+</span>
