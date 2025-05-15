@@ -13,7 +13,7 @@ url:
 baseurl: 
 # location of code, the full url to your github repository
 source-code: https://github.com/timalamenciak/trek-cb
-
+permalink: /:title
 ##########
 # SITE SETTINGS
 #

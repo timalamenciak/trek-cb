@@ -1,5 +1,6 @@
 display_name,stub,dropdown_parent
 Home,/,
+Graph,/graph.html,
 Browse,/browse.html,
 Locations,/locations.html,
 Map,/map.html,

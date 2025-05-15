@@ -60,7 +60,7 @@ except KeyError:
 
 meta_out["description"] = abstract
 meta_out["title"] = metad['title'][0]
-meta_out["license"] = metad['license'][0]['URL']
+meta_out["rights"] = metad['license'][0]['URL']
 meta_out["journal"] = metad['short-container-title']
 #Add authors
 authors = str()
@@ -80,9 +80,14 @@ for a in metad['author']:
     except ValueError as e:
         print(e)
         id = int(id) + 1
+        affiliation = None
+        try:
+            affiliation = a['affiliation'][0]['name']
+        except:
+            print(f"Warning: Affiliation not found for {author}.")
         new_author = {"objectid": id,
                       "title": author,
-                      "affiliation": a['affiliation'][0]['name'],
+                      "affiliation": affiliation,
                       "orcid": None}
         authors += f"{id};"
         with open('authors.csv', mode='a', newline='', encoding='utf-8') as csvfile:
@@ -90,7 +95,7 @@ for a in metad['author']:
             writer.writerow(new_author)
 
         
-meta_out["creator"] = authors
+meta_out["authorid"] = authors
 
 #Add publication date
 try: 
@@ -112,13 +117,13 @@ geolocator = Nominatim(user_agent="myGeocoder")
 # Geocode a location name
 location = geolocator.geocode(location_name)
 
-# Print the coordinates
-print((location.latitude, location.longitude))
-
 # Add location and coords to dict
 meta_out["location"] = location_name
-meta_out["latitude"] = location.latitude
-meta_out["longitude"] = location.longitude
+if location is not None:
+    meta_out["latitude"] = location.latitude
+    meta_out["longitude"] = location.longitude
+else:
+    print("Warning: Coordinates not found.")
 
 #Generate thumbnail from PDF.
 #Note that this requires Poppler - a set of external executables.
